@@ -5,6 +5,7 @@ import { mainRoutes } from './main.routes';
 import { RouterModule, Routes } from '@angular/router';
 import { UserModule } from './user/user.module';
 import { HomeModule } from './home/home.module';
+import { RoleModule } from './role/role.module';
 
 import { UtilityService } from '../core/services/utility.service';
 import { AuthenService } from '../core/services/authen.service';
@@ -15,6 +16,7 @@ import { AuthenService } from '../core/services/authen.service';
     CommonModule,
     UserModule,
     HomeModule,
+    RoleModule,
     RouterModule.forChild(mainRoutes)
   ],
   providers: [UtilityService, AuthenService],
