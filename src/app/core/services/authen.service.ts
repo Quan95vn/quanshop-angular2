@@ -3,22 +3,17 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { SystemConstants } from '../../core/common/system.constants';
 import { LoggedInUser } from '../domain/loggedin.user';
 import 'rxjs/add/operator/map';
-
 @Injectable()
 export class AuthenService {
 
-  constructor(private _http: Http) {
+  constructor(private _http: Http) { }
 
-  }
-
-  login(userName: string, password: string) {
-    let body = "userName=" + encodeURIComponent(userName) +
+  login(username: string, password: string) {
+    let body = "userName=" + encodeURIComponent(username) +
       "&password=" + encodeURIComponent(password) +
       "&grant_type=password";
-
     let headers = new Headers();
     headers.append("Content-Type", "application/x-www-form-urlencoded");
-
     let options = new RequestOptions({ headers: headers });
 
     return this._http.post(SystemConstants.BASE_API + '/api/oauth/token', body, options).map((response: Response) => {
@@ -29,7 +24,6 @@ export class AuthenService {
       }
     });
   }
-
   logout() {
     localStorage.removeItem(SystemConstants.CURRENT_USER);
   }
@@ -37,7 +31,7 @@ export class AuthenService {
   isUserAuthenticated(): boolean {
     let user = localStorage.getItem(SystemConstants.CURRENT_USER);
     if (user != null) {
-      return true
+      return true;
     }
     else
       return false;
@@ -45,14 +39,13 @@ export class AuthenService {
 
   getLoggedInUser(): LoggedInUser {
     let user: LoggedInUser;
-
-    if (this.isUserAuthenticated) {
+    if (this.isUserAuthenticated()) {
       var userData = JSON.parse(localStorage.getItem(SystemConstants.CURRENT_USER));
-      user = new LoggedInUser(userData.access_token, userData.userName, userData.fullName, userData.email, userData.avatar);
+      user = new LoggedInUser(userData.access_token, userData.username, userData.fullName, userData.email, userData.avatar);
     }
     else
       user = null;
-
     return user;
   }
+
 }
