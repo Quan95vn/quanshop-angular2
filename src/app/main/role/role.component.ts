@@ -49,6 +49,18 @@ export class RoleComponent implements OnInit {
     this.modalAddEdit.show();
   }
 
+  loadRole(id: any) {
+    this._dataService.get('/api/appRole/detail/' + id)
+      .subscribe((response: any) => {
+        this.entity = response;
+      });
+  }
+
+  showEditModal(id: number): void {
+    this.loadRole(id);
+    this.modalAddEdit.show();
+  }
+
   saveChange(valid: boolean) {
     if (valid) {
       if (this.entity.Id == undefined) {
@@ -62,7 +74,12 @@ export class RoleComponent implements OnInit {
           });
       }
       else {
-
+        this._dataService.put('/api/appRole/update', JSON.stringify(this.entity))
+          .subscribe((response: any) => {
+            this.loadData();
+            this.modalAddEdit.hide();
+            this._notificationService.printSuccessMessage(MessageContstants.UPDATED_OK_MSG);
+          }, error => this._dataService.handleError(error));
       }
     }
     else {
