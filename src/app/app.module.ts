@@ -9,9 +9,10 @@ import { AuthGuard } from './core/guards/auth.guard';
 
 import { PaginationModule } from 'ngx-bootstrap';
 
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
