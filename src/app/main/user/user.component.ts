@@ -62,6 +62,7 @@ export class UserComponent implements OnInit {
       }
     }, error => this._dataService.handleError(error));
   }
+
   loadUserDetail(id: any) {
     this._dataService.get('/api/appUser/detail/' + id)
       .subscribe((response: any) => {
@@ -74,6 +75,7 @@ export class UserComponent implements OnInit {
         console.log(this.entity.BirthDay);
       });
   }
+
   pageChanged(event: any): void {
     this.pageIndex = event.page;
     this.loadData();
@@ -131,7 +133,12 @@ export class UserComponent implements OnInit {
       this.loadData();
     });
   }
+
+
   public selectGender(event) {
     this.entity.Gender = event.target.value
+  }
+  public selectedDate(value: any) {
+    this.entity.BirthDay = moment(value.end._d).format('DD/MM/YYYY');
   }
 }
