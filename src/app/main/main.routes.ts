@@ -18,8 +18,10 @@ export const mainRoutes: Routes = [
             { path: 'product-category', loadChildren: './product-category/product-category.module#ProductCategoryModule' },
             // localhost:4200/main/product
             { path: 'product', loadChildren: './product/product.module#ProductModule' },
-             // localhost:4200/main/order
-            { path: 'order', loadChildren: './order/order.module#OrderModule' }
+            // localhost:4200/main/order
+            { path: 'order', loadChildren: './order/order.module#OrderModule' },
+             // localhost:4200/main/announcement
+            { path: 'announcement', loadChildren: './announcement/announcement.module#AnnouncementModule' }
         ]
     }
 
