@@ -46,7 +46,7 @@ export class ProductComponent implements OnInit {
     this.entity.Alias = this.utilityService.MakeSeoTitle(this.entity.Name);
   }
   public search() {
-    this._dataService.get('/api/product/getall?page=' + this.pageIndex + '&pageSize=' + this.pageSize + '&keyword=' + this.filter + '&categoryId=' + this.filterCategoryID)
+    this._dataService.get('/api/product/getall?page=' + this.pageIndex + '&pageSize=' + this.pageSize + '&keyword=' + this.filterKeyword + '&categoryId=' + this.filterCategoryID)
       .subscribe((response: any) => {
         this.products = response.Items;
         this.pageIndex = response.PageIndex;
@@ -132,11 +132,11 @@ export class ProductComponent implements OnInit {
       checkedIds.push(this.checkedItems[i]["ID"]);
 
     this.notificationService.printConfirmationDialog(MessageContstants.CONFIRM_DELETE_MSG, () => {
-      this._dataService.delete('/api/product/deletemulti', 'checkedProducts', JSON.stringify(checkedIds))
-            .subscribe((response: any) => {
-              this.notificationService.printSuccessMessage(MessageContstants.DELETED_OK_MSG);
-              this.search();
-            }, error => this._dataService.handleError(error));
+      this._dataService.delete('/api/product/deletemulti', 'checkedProducts', JSON.stringify(checkedIds)).subscribe((response: any) => {
+        this.notificationService.printSuccessMessage(MessageContstants.DELETED_OK_MSG);
+        this.search();
+      }, error => this._dataService.handleError(error));
     });
   }
+
 }

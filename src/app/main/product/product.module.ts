@@ -13,7 +13,7 @@ import { SimpleTinyComponent } from '../../shared/simple-tiny/simple-tiny.compon
 
 @NgModule({
   imports: [
-    CommonModule,
+        CommonModule,
     ProductRouter,
     FormsModule,
     PaginationModule,
@@ -21,7 +21,7 @@ import { SimpleTinyComponent } from '../../shared/simple-tiny/simple-tiny.compon
     Daterangepicker,
     MultiselectDropdownModule
   ],
-  declarations: [ProductComponent, SimpleTinyComponent],
+   declarations: [ProductComponent,SimpleTinyComponent],
   providers: [DataService, UtilityService, UploadService]
 })
 export class ProductModule { }
