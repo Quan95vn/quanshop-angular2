@@ -14,7 +14,10 @@ export const mainRoutes: Routes = [
             { path: 'role', loadChildren: './role/role.module#RoleModule' },
             // localhost:4200/main/function
             { path: 'function', loadChildren: './function/function.module#FunctionModule' },
-            {  path: 'product-category', loadChildren: './product-category/product-category.module#ProductCategoryModule' }
+            // localhost:4200/main/product-category
+            { path: 'product-category', loadChildren: './product-category/product-category.module#ProductCategoryModule' },
+            // localhost:4200/main/product
+            { path: 'product', loadChildren: './product/product.module#ProductModule' }
         ]
     }
 
