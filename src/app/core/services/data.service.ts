@@ -39,6 +39,18 @@ export class DataService {
     return this._http.delete(SystemConstants.BASE_API + uri + "/?" + key + "=" + id, { headers: this.headers })
       .map(this.extractData);
   }
+  deleteWithMultiParams(uri: string, params) {
+    this.headers.delete('Authorization');
+
+    this.headers.append("Authorization", "Bearer " + this._authenService.getLoggedInUser().access_token);
+    var paramStr: string = '';
+    for (let param in params) {
+      paramStr += param + "=" + params[param] + '&';
+    }
+    return this._http.delete(SystemConstants.BASE_API + uri + "/?" + paramStr, { headers: this.headers })
+      .map(this.extractData);
+
+  }
   postFile(uri: string, data?: any) {
     let newHeader = new Headers();
     newHeader.append("Authorization", "Bearer " + this._authenService.getLoggedInUser().access_token);
@@ -55,13 +67,18 @@ export class DataService {
       this._notificationService.printErrorMessage(MessageContstants.LOGIN_AGAIN_MSG);
       this._utilityService.navigateToLogin();
     }
+    else if (error.status == 403) {
+      localStorage.removeItem(SystemConstants.CURRENT_USER);
+      this._notificationService.printErrorMessage(MessageContstants.FORBIDDEN);
+      this._utilityService.navigateToLogin();
+    }
     else {
-      let errMsg = (error.message) ? error.message :
-        error.status ? `${error.status} - ${error.statusText}` : 'Lỗi hệ thống';
+      let errMsg = JSON.parse(error._body).Message;
       this._notificationService.printErrorMessage(errMsg);
 
       return Observable.throw(errMsg);
     }
+
 
   }
 }
